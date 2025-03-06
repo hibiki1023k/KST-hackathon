@@ -15,8 +15,6 @@ const Login: React.FC = () => {
       domain: formData.get('domain') as string,
       password: formData.get('password') as string,
     }
-    // ここでログイン処理を実装
-    console.log(data)
   }
 
   return (
