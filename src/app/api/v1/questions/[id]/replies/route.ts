@@ -43,6 +43,10 @@ export async function POST(request: NextRequest, props: { params: Promise<{ id: 
             }
         });
 
+        if (!parentQuestion) {
+            return NextResponse.json({body: "Parent question not found"}, {status: 404});
+        }
+
         const question = await prisma.question.create({
             data: {
                 text: body.text,

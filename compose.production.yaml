@@ -1,0 +1,29 @@
+volumes:
+  db:
+    name: kst_data
+
+services:
+  db:
+    image: postgres
+    container_name: kst_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db
+    volumes:
+      - db:/var/lib/postgresql/data
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: kst_app
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgres://user:password@db:5432/db?schema=public
+      AUTH_SECRET: AUTH_SECRET
+      AUTH_RESEND_KEY: RESEND_KEY
