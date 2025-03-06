@@ -6,19 +6,17 @@ export async function middleware(req: NextRequest) {
 
   // セッションがない場合
   if (!token) {
-    if (req.nextUrl.pathname !== "/") {
-      return NextResponse.redirect(new URL("/", req.url));
+    if (req.nextUrl.pathname !== "/login") {
+      return NextResponse.redirect(new URL("/login", req.url));
     }
-  } else {
-    // セッションがある場合
-    if (req.nextUrl.pathname === "/") {
-      //   return NextResponse.redirect(new URL("/", req.url)); //ログイン後のリダイレクト先
-    }
+  }
+  if (req.nextUrl.pathname === "/login") {
+    return NextResponse.redirect(new URL("/", req.url));
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/", "/home", "/((?!api|_next|.*\\..*).*)"], // 除外するパスを設定
+  matcher: ["/((?!api|_next|.*\\..*).*)"], // 除外するパスを設定
 };
