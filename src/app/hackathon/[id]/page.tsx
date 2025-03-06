@@ -19,7 +19,7 @@ const HackathonPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isJoined, setIsJoined] = useState(false);
   const params = useParams();
-  const hackathon = dummyHackathonsdetails.find(h => h.id === params.id);
+  const hackathon = dummyHackathonsdetails.find(h => h.id === Number(params.id));
   const handleOnclick = () => {
     setIsOpen(true);
   }
