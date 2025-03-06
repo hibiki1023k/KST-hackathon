@@ -10,7 +10,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [
     Resend({
       // If your environment variable is named differently than default
-      apiKey: "re_TCDJfzmC_GT9eWbUfSa4ajRFdJmvh782r",
+      apiKey: AUTH_RESEND_KEY,
       from: "no-reply@semikoron.org",
     }),
   ],
