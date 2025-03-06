@@ -7,6 +7,7 @@ const AUTH_RESEND_KEY = process.env.AUTH_RESEND_KEY;
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma),
+  session: { strategy: "jwt" },
   providers: [
     Resend({
       // If your environment variable is named differently than default
@@ -14,4 +15,18 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       from: "no-reply@semikoron.org",
     }),
   ],
+  callbacks: {
+    jwt({ token, user }) {
+      if (user) {
+        // User is available during sign-in
+        token.id = user.id;
+      }
+      return token;
+    },
+    session({ session, token }) {
+      session.user.id = token.sub as string;
+
+      return session;
+    },
+  },
 });
