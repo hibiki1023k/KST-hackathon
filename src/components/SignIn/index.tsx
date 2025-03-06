@@ -5,7 +5,7 @@ export function SignIn() {
     <form
       action={async (formData) => {
         "use server";
-        await signIn("forwardemail", formData);
+        await signIn("resend", formData);
       }}
     >
       <input type="text" name="email" placeholder="Email" />
