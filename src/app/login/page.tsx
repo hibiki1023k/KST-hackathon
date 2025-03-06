@@ -10,9 +10,14 @@ const Login: React.FC = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
-    const data = {
-      address: formData.get('address') as string,
-      domain: formData.get('domain') as string,
+    if (!formData.get("address") || !formData.get("domain")) {
+      alert("メールアドレスを入力してください")
+      return
+    } else {
+      const address = formData.get("address")
+      const domain = formData.get("domain")
+      const data = `${address}@${domain}`
+      console.log(data)
     }
   }
 
