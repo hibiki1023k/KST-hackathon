@@ -1,16 +1,16 @@
 import NextAuth from "next-auth";
-import ForwardEmail from "next-auth/providers/forwardemail";
+import Resend from "next-auth/providers/resend";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/prisma";
 
-const AUTH_FORWARDEMAIL_KEY = process.env.AUTH_FORWARDEMAIL_KEY;
+const AUTH_RESEND_KEY = process.env.AUTH_RESEND_KEY;
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [
-    ForwardEmail({
+    Resend({
       // If your environment variable is named differently than default
-      apiKey: AUTH_FORWARDEMAIL_KEY,
+      apiKey: AUTH_RESEND_KEY,
       from: "no-reply@company.com",
     }),
   ],
