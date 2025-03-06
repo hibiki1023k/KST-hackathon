@@ -1,6 +1,6 @@
 import CustomCard from "@/components/HackathonCard/page";
 import ProductCard from "@/components/ProductCard/page";
-import { dummyHackathons } from "./home_dummy";
+import { dummyHackathons } from "./hack_dummy";
 import { dummyProducts } from "./product_dummy_data";
 import { dummyTeams } from "./team_dummy";
 
@@ -9,15 +9,23 @@ export interface Hackathon {
     name: string
     startDate: string
     endDate: string
+    createdAt: string
+    updatedAt: string
 }
 
 export interface Product {
     id: string
+    teamId:string
+    hackathonId:string
     title:string
+    description:string
+    createdAt:string
+    updatedAt:string
 }
 
 export interface Team{
     id:string
+    hackathonId:string
     name:string
 }
 

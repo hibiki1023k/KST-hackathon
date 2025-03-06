@@ -11,11 +11,13 @@ import {
 import { useRouter } from "next/navigation"
 import React from "react"
 
-interface Hackathon {
+export interface Hackathon {
     id: string
     name: string
     startDate: string
     endDate: string
+    createdAt: string
+    updatedAt: string
 }
 
 interface HackathonCardProps {
