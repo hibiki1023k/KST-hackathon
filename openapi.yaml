@@ -1,11 +1,11 @@
 openapi: 3.0.0
 info:
   title: KST Hackathon App
-  description: The KST Hackathon App
+  description: The KST Hackathon App.
   version: 1.0.0
 servers:
-  - url: https://localhost:3000/api/v1
-    description: Development
+  - url: http://localhost:3000/api/v1
+    description: Development server
 tags:
   - name: Authentication
     description: Authentication related operations
@@ -887,12 +887,20 @@ components:
         endDate:
           type: string
           format: date-time
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
       required:
         - id
         - name
         - theme
         - startDate
         - endDate
+        - createdAt
+        - updatedAt
 
     HackathonCreate:
       type: object
@@ -937,10 +945,18 @@ components:
           type: integer
         name:
           type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
       required:
         - id
         - hackathonId
         - name
+        - createdAt
+        - updatedAt
 
     TeamCreate:
       type: object
@@ -1069,12 +1085,20 @@ components:
           type: string
         description:
           type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
       required:
         - id
         - teamId
         - hackathonId
         - title
         - description
+        - createdAt
+        - updatedAt
 
     ProductCreate:
       type: object
@@ -1097,6 +1121,12 @@ components:
           type: integer
         text:
           type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
         replyId:
           type: integer
           nullable: true
@@ -1104,6 +1134,8 @@ components:
         - id
         - productId
         - text
+        - createdAt
+        - updatedAt
 
     QuestionCreate:
       type: object
