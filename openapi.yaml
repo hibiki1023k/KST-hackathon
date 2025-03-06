@@ -469,7 +469,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Product'
 
-  /hackathons/{hackathonId}/teams/{teamId}/products:
+  /hackathons/{hackathonId}/teams/products:
     get:
       summary: Get team's products for a hackathon
       tags:
@@ -478,11 +478,6 @@ paths:
         - Hackathons
       parameters:
         - name: hackathonId
-          in: path
-          required: true
-          schema:
-            type: integer
-        - name: teamId
           in: path
           required: true
           schema:
@@ -505,11 +500,6 @@ paths:
         - Hackathons
       parameters:
         - name: hackathonId
-          in: path
-          required: true
-          schema:
-            type: integer
-        - name: teamId
           in: path
           required: true
           schema:
@@ -1079,8 +1069,6 @@ components:
           type: integer
         teamId:
           type: integer
-        hackathonId:
-          type: integer
         title:
           type: string
         description:
@@ -1103,11 +1091,14 @@ components:
     ProductCreate:
       type: object
       properties:
+        teamId:
+          type: integer
         title:
           type: string
         description:
           type: string
       required:
+        - teamId
         - title
         - description
 
