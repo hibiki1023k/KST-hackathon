@@ -17,7 +17,7 @@ const Header: React.FC = () => {
         <Link href="/" className="text-xl font-bold flex">
           <Image src="/vercel.svg" alt="Logo" width={40} height={40} />
           <p className="text-blue-500 flex items-center pl-2">
-            TKS-hackathon
+            KST-hackathon
           </p>
         </Link>
         </div>
