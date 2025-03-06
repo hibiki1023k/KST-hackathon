@@ -97,7 +97,6 @@ model Authenticator {
 model UserData {
   userId      String @id
   user        User   @relation(fields: [userId], references: [id])
-  userName    String
   affiliation String
   profile     String
 }
@@ -109,8 +108,9 @@ model Team {
   name        String
   TeamMember  TeamMember[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Product   Product[]
 }
 
 model Prize {
@@ -166,7 +166,7 @@ model UserTechnologyStack {
 model Product {
   id          Int          @id @default(autoincrement())
   teamId      Int
-  hackathonId Int
+  team        Team         @relation(fields: [teamId], references: [id])
   title       String
   description String
   question    Question[]
