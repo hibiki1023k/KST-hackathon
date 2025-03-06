@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import React from "react"
 
 interface Hackathon {
-    id: string
+    id: number
     name: string
     startDate: string
     endDate: string
@@ -21,9 +21,9 @@ interface Hackathon {
 }
 
 interface Product {
-    id: string
-    teamId:string
-    hackathonId:string
+    id: number
+    teamId:number
+    hackathonId:number
     title:string
     description:string
     createdAt:string
@@ -31,8 +31,8 @@ interface Product {
 }
 
 interface Team{
-    id:string
-    hackathonId:string
+    id:number
+    hackathonId:number
     name:string
 }
 
@@ -54,7 +54,7 @@ const ProductCard: React.FC<ProductCardProps> = ({product,hackathon,team}: Produ
     return (
         <div>
             <Card
-            onClick={() => handleOnClick(product.id)} 
+            onClick={() => handleOnClick(product.id.toString())} 
             className="w-[250px] h-[250px]"
             >
                <CardHeader>

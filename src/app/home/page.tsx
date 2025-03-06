@@ -5,8 +5,9 @@ import { dummyProducts } from "./product_dummy_data";
 import { dummyTeams } from "./team_dummy";
 
 export interface Hackathon {
-    id: string
+    id: number
     name: string
+    theme:string
     startDate: string
     endDate: string
     createdAt: string
@@ -14,18 +15,18 @@ export interface Hackathon {
 }
 
 export interface Product {
-    id: string
-    teamId:string
-    hackathonId:string
+    id: number
+    teamId:number
+    hackathonId:number
     title:string
     description:string
     createdAt:string
     updatedAt:string
 }
 
-export interface Team{
-    id:string
-    hackathonId:string
+export interface Teams{
+    id:number
+    hackathonId:number
     name:string
 }
 
@@ -49,8 +50,8 @@ const Home: React.FC = () => {
                         <ProductCard 
                             key={product.id} 
                             product={product}
-                            team={dummyTeams[0]}
-                            hackathon={dummyHackathons[0]}
+                            team={dummyTeams[product.teamId]}
+                            hackathon={dummyHackathons[product.hackathonId]}
                         />
                     ))}
                 </div>

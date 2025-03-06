@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation"
 import React from "react"
 
 export interface Hackathon {
-    id: string
+    id: number
     name: string
     startDate: string
     endDate: string
@@ -36,7 +36,7 @@ const HackathonCard: React.FC<HackathonCardProps> = ({hackathon}) => {
     return (
         <div>
             <Card
-            onClick={() => handleOnClick(hackathon.id)} 
+            onClick={() => handleOnClick(hackathon.id.toString())} 
             className="w-[250px] h-[250px]"
             >
                <CardHeader>
