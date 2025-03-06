@@ -1,0 +1,1177 @@
+openapi: 3.0.0
+info:
+  title: KST Hackathon App
+  description: The KST Hackathon App.
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/api/v1
+    description: Development server
+tags:
+  - name: Authentication
+    description: Authentication related operations
+  - name: Users
+    description: User management operations
+  - name: Teams
+    description: Team management operations
+  - name: Hackathons
+    description: Hackathon management operations
+  - name: Products
+    description: Product management operations
+  - name: Questions
+    description: Question management operations
+  - name: TechnologyStack
+    description: Technology stack operations
+  - name: Evaluation
+    description: Product evaluation operations
+
+paths:
+  # User related endpoints
+  /users:
+    get:
+      summary: Get all users
+      tags:
+        - Users
+      responses:
+        '200':
+          description: A list of users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+    post:
+      summary: Create a new user
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreate'
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+
+  /users/{userId}:
+    get:
+      summary: Get user by ID
+      tags:
+        - Users
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+
+    put:
+      summary: Update user
+      tags:
+        - Users
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdate'
+      responses:
+        '200':
+          description: User updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+
+  /user-data/{userId}:
+    get:
+      summary: Get user data
+      tags:
+        - Users
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User data found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserData'
+        '404':
+          description: User data not found
+
+    put:
+      summary: Update user data
+      tags:
+        - Users
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDataUpdate'
+      responses:
+        '200':
+          description: User data updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserData'
+        '404':
+          description: User data not found
+
+  # Technology Stack
+  /technology-stacks:
+    get:
+      summary: Get all technology stacks
+      tags:
+        - TechnologyStack
+      responses:
+        '200':
+          description: A list of technology stacks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TechnologyStack'
+
+    post:
+      summary: Create a new technology stack
+      tags:
+        - TechnologyStack
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TechnologyStackCreate'
+      responses:
+        '201':
+          description: Technology stack created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TechnologyStack'
+
+  /users/{userId}/technology-stacks:
+    get:
+      summary: Get user's technology stacks
+      tags:
+        - Users
+        - TechnologyStack
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User's technology stacks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserTechnologyStack'
+
+    post:
+      summary: Add technology stack to user
+      tags:
+        - Users
+        - TechnologyStack
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserTechnologyStackCreate'
+      responses:
+        '201':
+          description: Technology stack added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserTechnologyStack'
+
+  # Hackathon endpoints
+  /hackathons:
+    get:
+      summary: Get all hackathons
+      tags:
+        - Hackathons
+      responses:
+        '200':
+          description: A list of hackathons
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Hackathon'
+
+    post:
+      summary: Create a new hackathon
+      tags:
+        - Hackathons
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HackathonCreate'
+      responses:
+        '201':
+          description: Hackathon created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hackathon'
+
+  /hackathons/{hackathonId}:
+    get:
+      summary: Get hackathon by ID
+      tags:
+        - Hackathons
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Hackathon found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hackathon'
+        '404':
+          description: Hackathon not found
+
+    put:
+      summary: Update hackathon
+      tags:
+        - Hackathons
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HackathonUpdate'
+      responses:
+        '200':
+          description: Hackathon updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hackathon'
+        '404':
+          description: Hackathon not found
+
+  # Team endpoints
+  /hackathons/{hackathonId}/teams:
+    get:
+      summary: Get all teams for a hackathon
+      tags:
+        - Teams
+        - Hackathons
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A list of teams
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Team'
+
+    post:
+      summary: Create a new team for a hackathon
+      tags:
+        - Teams
+        - Hackathons
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamCreate'
+      responses:
+        '201':
+          description: Team created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+
+  /teams/{teamId}/members:
+    get:
+      summary: Get team members
+      tags:
+        - Teams
+      parameters:
+        - name: teamId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Team members retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TeamMember'
+
+    post:
+      summary: Add a member to team
+      tags:
+        - Teams
+      parameters:
+        - name: teamId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamMemberCreate'
+      responses:
+        '201':
+          description: Team member added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamMember'
+
+  # Prize endpoints
+  /hackathons/{hackathonId}/prizes:
+    get:
+      summary: Get all prizes for a hackathon
+      tags:
+        - Hackathons
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A list of prizes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Prize'
+
+    post:
+      summary: Create a new prize for a hackathon
+      tags:
+        - Hackathons
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrizeCreate'
+      responses:
+        '201':
+          description: Prize created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Prize'
+
+  # Product endpoints
+  /products:
+    get:
+      summary: Get all products
+      tags:
+        - Products
+      responses:
+        '200':
+          description: A list of products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+
+  /hackathons/{hackathonId}/teams/products:
+    get:
+      summary: Get team's products for a hackathon
+      tags:
+        - Products
+        - Teams
+        - Hackathons
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Team's products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+
+    post:
+      summary: Create a new product for a team in a hackathon
+      tags:
+        - Products
+        - Teams
+        - Hackathons
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductCreate'
+      responses:
+        '201':
+          description: Product created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+
+  # Question endpoints
+  /products/{productId}/questions:
+    get:
+      summary: Get questions for a product
+      tags:
+        - Questions
+        - Products
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Product questions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Question'
+
+    post:
+      summary: Create a new question for a product
+      tags:
+        - Questions
+        - Products
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuestionCreate'
+      responses:
+        '201':
+          description: Question created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Question'
+
+  /questions/{questionId}/replies:
+    get:
+      summary: Get replies to a question
+      tags:
+        - Questions
+      parameters:
+        - name: questionId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Question replies
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Question'
+
+    post:
+      summary: Reply to a question
+      tags:
+        - Questions
+      parameters:
+        - name: questionId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuestionReplyCreate'
+      responses:
+        '201':
+          description: Reply created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Question'
+
+  # Evaluation endpoints
+  /hackathons/{hackathonId}/products/{productId}/evaluations:
+    get:
+      summary: Get evaluations for a product in a hackathon
+      tags:
+        - Evaluation
+        - Products
+        - Hackathons
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Product evaluations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Evaluation'
+
+    post:
+      summary: Create an evaluation for a product in a hackathon
+      tags:
+        - Evaluation
+        - Products
+        - Hackathons
+      parameters:
+        - name: hackathonId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EvaluationCreate'
+      responses:
+        '201':
+          description: Evaluation created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Evaluation'
+
+components:
+  schemas:
+    # User related schemas
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          nullable: true
+        email:
+          type: string
+          format: email
+        emailVerified:
+          type: string
+          format: date-time
+          nullable: true
+        image:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - email
+        - createdAt
+        - updatedAt
+
+    UserCreate:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        email:
+          type: string
+          format: email
+        image:
+          type: string
+          nullable: true
+      required:
+        - email
+
+    UserUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        email:
+          type: string
+          format: email
+        image:
+          type: string
+          nullable: true
+
+    UserData:
+      type: object
+      properties:
+        userId:
+          type: string
+        userName:
+          type: string
+        affiliation:
+          type: string
+        email:
+          type: string
+          format: email
+        profile:
+          type: string
+      required:
+        - userId
+        - userName
+        - affiliation
+        - email
+        - profile
+
+    UserDataUpdate:
+      type: object
+      properties:
+        userName:
+          type: string
+        affiliation:
+          type: string
+        email:
+          type: string
+          format: email
+        profile:
+          type: string
+
+    # Authentication related schemas
+    Account:
+      type: object
+      properties:
+        userId:
+          type: string
+        type:
+          type: string
+        provider:
+          type: string
+        providerAccountId:
+          type: string
+        refresh_token:
+          type: string
+          nullable: true
+        access_token:
+          type: string
+          nullable: true
+        expires_at:
+          type: integer
+          nullable: true
+        token_type:
+          type: string
+          nullable: true
+        scope:
+          type: string
+          nullable: true
+        id_token:
+          type: string
+          nullable: true
+        session_state:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - userId
+        - type
+        - provider
+        - providerAccountId
+
+    Session:
+      type: object
+      properties:
+        sessionToken:
+          type: string
+        userId:
+          type: string
+        expires:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - sessionToken
+        - userId
+        - expires
+
+    Authenticator:
+      type: object
+      properties:
+        credentialID:
+          type: string
+        userId:
+          type: string
+        providerAccountId:
+          type: string
+        credentialPublicKey:
+          type: string
+        counter:
+          type: integer
+        credentialDeviceType:
+          type: string
+        credentialBackedUp:
+          type: boolean
+        transports:
+          type: string
+          nullable: true
+      required:
+        - credentialID
+        - userId
+        - providerAccountId
+        - credentialPublicKey
+        - counter
+        - credentialDeviceType
+        - credentialBackedUp
+
+    # Hackathon related schemas
+    Hackathon:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        theme:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+        - theme
+        - startDate
+        - endDate
+        - createdAt
+        - updatedAt
+
+    HackathonCreate:
+      type: object
+      properties:
+        name:
+          type: string
+        theme:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+      required:
+        - name
+        - theme
+        - startDate
+        - endDate
+
+    HackathonUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        theme:
+          type: string
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+
+    # Team related schemas
+    Team:
+      type: object
+      properties:
+        id:
+          type: integer
+        hackathonId:
+          type: integer
+        name:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - hackathonId
+        - name
+        - createdAt
+        - updatedAt
+
+    TeamCreate:
+      type: object
+      properties:
+        name:
+          type: string
+      required:
+        - name
+
+    TeamMember:
+      type: object
+      properties:
+        userId:
+          type: string
+        hackathonId:
+          type: integer
+        teamId:
+          type: integer
+      required:
+        - userId
+        - hackathonId
+        - teamId
+
+    TeamMemberCreate:
+      type: object
+      properties:
+        userId:
+          type: string
+        hackathonId:
+          type: integer
+      required:
+        - userId
+        - hackathonId
+
+    # Prize related schema
+    Prize:
+      type: object
+      properties:
+        id:
+          type: integer
+        hackathonId:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+      required:
+        - id
+        - hackathonId
+        - name
+        - description
+
+    PrizeCreate:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+      required:
+        - name
+        - description
+
+    # Technology stack related schemas
+    TechnologyStack:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+      required:
+        - id
+        - name
+
+    TechnologyStackCreate:
+      type: object
+      properties:
+        name:
+          type: string
+      required:
+        - name
+
+    UserTechnologyStack:
+      type: object
+      properties:
+        userId:
+          type: string
+        technologyStackId:
+          type: integer
+        level:
+          type: integer
+          minimum: 1
+          maximum: 5
+          description: Proficiency level from 1 to 5
+      required:
+        - userId
+        - technologyStackId
+        - level
+
+    UserTechnologyStackCreate:
+      type: object
+      properties:
+        technologyStackId:
+          type: integer
+        level:
+          type: integer
+          minimum: 1
+          maximum: 5
+          description: Proficiency level from 1 to 5
+      required:
+        - technologyStackId
+        - level
+
+    # Product related schemas
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+        teamId:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - teamId
+        - hackathonId
+        - title
+        - description
+        - createdAt
+        - updatedAt
+
+    ProductCreate:
+      type: object
+      properties:
+        teamId:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+      required:
+        - teamId
+        - title
+        - description
+
+    # Question related schemas
+    Question:
+      type: object
+      properties:
+        id:
+          type: integer
+        productId:
+          type: integer
+        text:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        replyId:
+          type: integer
+          nullable: true
+      required:
+        - id
+        - productId
+        - text
+        - createdAt
+        - updatedAt
+
+    QuestionCreate:
+      type: object
+      properties:
+        text:
+          type: string
+      required:
+        - text
+
+    QuestionReplyCreate:
+      type: object
+      properties:
+        text:
+          type: string
+      required:
+        - text
+
+    # Evaluation schema
+    Evaluation:
+      type: object
+      properties:
+        userId:
+          type: string
+        hackathonId:
+          type: integer
+        productId:
+          type: integer
+      required:
+        - userId
+        - hackathonId
+        - productId
+
+    EvaluationCreate:
+      type: object
+      properties:
+        userId:
+          type: string
+      required:
+        - userId
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - bearerAuth: []
