@@ -13,13 +13,12 @@ const Login: React.FC = () => {
     const data = {
       address: formData.get('address') as string,
       domain: formData.get('domain') as string,
-      password: formData.get('password') as string,
     }
   }
 
   return (
     <div className="flex justify-center items-center h-screen pb-16">
-      <Card className="px-6 py-6 w-md">
+      <Card className="flex items-center justify-center px-6 py-6 w-md h-[300px]">
         <CardHeader>
           <CardTitle>KST-hackathon にログイン</CardTitle>
           <CardDescription>説明欄hogehogehoge</CardDescription>
@@ -52,29 +51,12 @@ const Login: React.FC = () => {
                   </Select>
                 </div>
               </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="password">パスワード</Label>
-                <Input
-                  id="password"
-                  name="password"
-                  type="password"
-                  placeholder="password"
-                />
-              </div>
             </div>
             <CardFooter className="flex justify-center pt-4">
               <Button type="submit" variant="default">ログイン</Button>
             </CardFooter>
           </form>
         </CardContent>
-        <div className="flex items-center">
-          <div className="w-full h-[1px] mr-1.5 bg-gray-300"/>
-          <p>or</p>
-          <div className="w-full h-[1px] ml-1.5 bg-gray-300"/>
-        </div>
-        <CardFooter className="flex justify-center">
-          <Button variant="outline">新規登録</Button>
-        </CardFooter>
       </Card>
     </div>
   )
