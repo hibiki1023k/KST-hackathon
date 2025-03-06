@@ -23,7 +23,7 @@ interface HackathonCardProps {
 }
 
 
-const CustomCard: React.FC<HackathonCardProps> = ({hackathon}) => {
+const HackathonCard: React.FC<HackathonCardProps> = ({hackathon}) => {
 
     const router = useRouter();
 
@@ -50,5 +50,5 @@ const CustomCard: React.FC<HackathonCardProps> = ({hackathon}) => {
 }
      
 
-export default CustomCard;
+export default HackathonCard;
 
