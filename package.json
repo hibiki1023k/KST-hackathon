@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "init-db": "prisma generate"
+    "init-db": "prisma migrate dev"
   },
   "dependencies": {
     "@prisma/client": "^6.4.1",
