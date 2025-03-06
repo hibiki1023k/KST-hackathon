@@ -109,6 +109,9 @@ model Team {
   hackathonId Int
   name        String
   TeamMember  TeamMember[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Prize {
@@ -140,6 +143,9 @@ model Hackathon {
   TeamMember TeamMember[]
   Prize      Prize[]
   evaluation evaluation[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model TechnologyStack {
@@ -166,6 +172,9 @@ model Product {
   description String
   question    Question[]
   evaluation  evaluation[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Question {
@@ -173,6 +182,9 @@ model Question {
   product   Product @relation(fields: [productId], references: [id])
   productId Int
   text      String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   replyId Int?
   reply   Question?  @relation("QuestionToQuestion", fields: [replyId], references: [id])
