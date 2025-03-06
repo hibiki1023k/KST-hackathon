@@ -1,0 +1,112 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                  Int                   @id @default(autoincrement())
+  userName            String
+  affiliation         String
+  email               String                @unique
+  profile             String
+  TeamMember          TeamMember[]
+  UserTechnologyStack UserTechnologyStack[]
+  evaluation          evaluation[]
+}
+
+model Team {
+  id          Int          @id @default(autoincrement())
+  hackathon   Hackathon    @relation(fields: [hackathonId], references: [id])
+  hackathonId Int
+  name        String
+  TeamMember  TeamMember[]
+}
+
+model Prize {
+  id          Int       @id @default(autoincrement())
+  hackathonId Int
+  hackathon   Hackathon @relation(fields: [hackathonId], references: [id])
+  name        String
+  description String
+}
+
+model TeamMember {
+  userId      Int
+  user        User      @relation(fields: [userId], references: [id])
+  hackathonId Int
+  hackathon   Hackathon @relation(fields: [hackathonId], references: [id])
+  teamId      Int
+  team        Team      @relation(fields: [teamId], references: [id])
+
+  @@id([userId, hackathonId])
+}
+
+model Hackathon {
+  id         Int          @id @default(autoincrement())
+  name       String
+  theme      String
+  startDate  DateTime
+  endDate    DateTime
+  Team       Team[]
+  TeamMember TeamMember[]
+  Prize      Prize[]
+  evaluation evaluation[]
+}
+
+model TechnologyStack {
+  id                  Int                   @id @default(autoincrement())
+  name                String
+  UserTechnologyStack UserTechnologyStack[]
+}
+
+model UserTechnologyStack {
+  userId            Int
+  user              User            @relation(fields: [userId], references: [id])
+  technologyStackId Int
+  technologyStack   TechnologyStack @relation(fields: [technologyStackId], references: [id])
+  level             Int
+
+  @@id([userId, technologyStackId])
+}
+
+model Product {
+  id          Int          @id @default(autoincrement())
+  teamId      Int
+  hackathonId Int
+  title       String
+  description String
+  question    Question[]
+  evaluation  evaluation[]
+}
+
+model Question {
+  id        Int     @id @default(autoincrement())
+  product   Product @relation(fields: [productId], references: [id])
+  productId Int
+  text      String
+
+  replyId Int?
+  reply   Question?  @relation("QuestionToQuestion", fields: [replyId], references: [id])
+  replies Question[] @relation("QuestionToQuestion")
+}
+
+model evaluation {
+  userId      Int
+  user        User      @relation(fields: [userId], references: [id])
+  hackathonId Int
+  hackathon   Hackathon @relation(fields: [hackathonId], references: [id])
+  productId   Int
+  product     Product   @relation(fields: [productId], references: [id])
+
+  @@id([userId, hackathonId, productId])
+}
