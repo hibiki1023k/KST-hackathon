@@ -11,7 +11,7 @@ const Login: React.FC = () => {
     <div className="flex justify-center items-center h-screen pb-16">
       <Card className="flex items-center justify-center px-6 py-6 w-md h-[300px]">
         <CardHeader>
-          <CardTitle>KST-hackathon にログイン</CardTitle>
+          <CardTitle>Hack Cycle にログイン</CardTitle>
           <CardDescription>説明欄hogehogehoge</CardDescription>
         </CardHeader>
         <CardContent>
