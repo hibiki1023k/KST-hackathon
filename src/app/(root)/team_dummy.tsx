@@ -29,5 +29,15 @@ export const dummyTeams: Team[] = [
         id: 5,
         hackathonId: 3,
         name: "チームE"
+    },
+    {
+        id: 6,
+        hackathonId: 4,
+        name: "チームF"
+    },
+    {
+        id: 7,
+        hackathonId: 4,
+        name: "チームG"
     }
 ];
