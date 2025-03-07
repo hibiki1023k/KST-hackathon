@@ -1,4 +1,4 @@
-# KST-hackathon
+# Hack Cycle
 
 ## ブランチルール
 - main: 本番環境、基本的にdevelopのみからマージを受け付ける\
