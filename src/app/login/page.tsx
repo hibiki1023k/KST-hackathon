@@ -12,7 +12,7 @@ const Login: React.FC = () => {
       <Card className="flex items-center justify-center px-6 py-6 w-md h-[300px]">
         <CardHeader>
           <CardTitle>Hack Cycle にログイン</CardTitle>
-          <CardDescription>説明欄hogehogehoge</CardDescription>
+          {/* <CardDescription>説明欄hogehogehoge</CardDescription> */}
         </CardHeader>
         <CardContent>
           <form
