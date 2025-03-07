@@ -11,29 +11,32 @@ import {
 import { useRouter } from "next/navigation";
 import React from "react"
 
-interface Hackathon {
+interface Product {
     id: number
-    name: string
-    startDate: string
-    endDate: string
+    teamId: number
+    hackathonId: number
+    title:string
+    description:string
     createdAt: string
     updatedAt: string
 }
 
-interface Product {
-    id: number
-    teamId:number
-    hackathonId:number
-    title:string
-    description:string
+interface Hackathon {
+    id:number
+    name:string
+    theme:string
+    startDate:string
+    endDate:string
     createdAt:string
     updatedAt:string
 }
 
 interface Team{
-    id:number
+    id:string
     hackathonId:number
     name:string
+    createdAt:string
+    updatedAt:string
 }
 
 interface ProductCardProps {
