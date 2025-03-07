@@ -46,14 +46,27 @@ const Home: React.FC = () => {
             <section>
                 <h2 className="text-2xl font-bold mb-4 px-8">プロダクト一覧</h2>
                 <div className="justify-content:flex-start flex flex-wrap p-8 gap-4">
-                    {dummyProducts.map((product: Product) => (
-                        <ProductCard 
-                            key={product.id} 
-                            product={product}
-                            team={dummyTeams[product.teamId]}
-                            hackathon={dummyHackathons[product.hackathonId]}
-                        />
-                    ))}
+                    {dummyProducts.map((product: Product) => {
+                        const team = dummyTeams.find(t => t.id === product.teamId);
+                        const hackathon = dummyHackathons.find(h => h.id === product.hackathonId);
+                        
+                        return (
+                            <ProductCard 
+                                key={product.id} 
+                                product={product}
+                                team={team || { id: 0, hackathonId: 0, name: "不明" }}
+                                hackathon={hackathon || { 
+                                    id: 0, 
+                                    name: "不明", 
+                                    theme: "", 
+                                    startDate: "", 
+                                    endDate: "", 
+                                    createdAt: "", 
+                                    updatedAt: "" 
+                                }}
+                            />
+                        );
+                    })}
                 </div>
             </section>
         </div>
