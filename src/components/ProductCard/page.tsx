@@ -64,8 +64,8 @@ const ProductCard: React.FC<ProductCardProps> = ({product,hackathon,team}: Produ
                    <CardTitle>{product.title}</CardTitle>
                </CardHeader>
                     <CardContent>
-                   <p>チーム名{team.name}</p>
-                   <p>ハッカソン名{hackathon.name}</p>
+                   <p>チーム名:{team.name}</p>
+                   <p>ハッカソン名:{hackathon.name}</p>
                    </CardContent>
             </Card>
         </div>
